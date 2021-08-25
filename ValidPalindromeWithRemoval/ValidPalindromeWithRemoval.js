@@ -10,20 +10,47 @@ var validPalindromeWithRemoval = (input) =>{
     var arr = input.replace(/\W+/g, "").toLowerCase().split('');
     var left = 0;
     var right = arr.length-1;
-    var mismatchCount = 0;
     while (left<right) {
         if(arr[left] !== arr[right]){
-            mismatchCount ++;
-            if(mismatchCount>1){
+              /*
+                Note: the second argument to substring: Zero-based index number indicating the 
+                end of the substring. The substring includes the characters up to, but not including, 
+                the character indicated by end. If end is omitted, the characters from start through
+                 the end of the original string are returned.
+                */
+            if(validPalindrome(input.replace(/\W+/g, "").toLowerCase().substring(left + 1,right + 1))){
+                //True if the left char is removed
+                return true;
+            }else if(validPalindrome(input.replace(/\W+/g, "").toLowerCase().substring(left ,right))){
+                //True if the right char is removed
+                return true;
+            }else{
+                //More removal is required
                 return false;
             }
-            left++;
         }else{
             left++;
             right--;
         }
     }
+    //Palindrome
     return true;
+}
+
+const validPalindrome = (input) =>{
+    var arr = input.replace(/\W+/g, "").toLowerCase().split('');
+    var left = 0;
+    var right = arr.length-1;
+    var phalindrome = true;
+    while(left<right){
+        if(arr[left] !== arr[right]){
+            phalindrome = false;
+            break;
+        }
+        left++;
+        right--;
+    }
+    return phalindrome;
 }
 
 var input = `abccab`;
