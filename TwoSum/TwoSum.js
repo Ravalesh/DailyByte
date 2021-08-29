@@ -7,10 +7,14 @@ Note: you may not sum a number with itself.
 const twoSum = (arr, sum) =>{
     var traceArray = new Array();
     var targetFound = false;
+    let shouldSkip = false;
     arr.forEach(element => {
+        if (shouldSkip) {
+            return;
+        }
         if(traceArray.includes(element)){
             targetFound = true;
-            return;
+            shouldSkip = true;
         }
         traceArray.push(Math.abs(sum-element));
     });
